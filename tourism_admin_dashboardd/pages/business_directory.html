@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Directory - Tourism Admin</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-surface border-b border-border z-50 h-16">
+        <div class="flex items-center justify-between px-6 h-full">
+            <!-- Logo and Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-tourism">
+                    <i class="fas fa-bars text-text-primary"></i>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mountain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-text-primary hidden sm:block">Tourism Admin</h1>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search businesses, categories, locations..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+                
+
+                <!-- User Profile -->
+                <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <span class="text-sm font-medium text-text-primary hidden sm:block">John Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-surface border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <nav class="p-4 space-y-2">
+            <a href="dashboard_overview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="destinations_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>Destinations</span>
+            </a>
+            <a href="user_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+            <a href="business_directory.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-tourism">
+                <i class="fas fa-building w-5"></i>
+                <span>Businesses</span>
+            </a>
+            <a href="reviews_ratings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-star w-5"></i>
+                <span>Reports</span>
+            </a>
+            <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-16 min-h-screen">
+        <div class="p-6">
+            <!-- Page Header -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-text-primary mb-2">Business Directory</h2>
+                    <p class="text-text-secondary">Manage tourism businesses, partnerships, and verification status</p>
+                </div>
+                <div class="flex items-center gap-3 mt-4 lg:mt-0">
+                    <button class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                        <i class="fas fa-clock mr-2"></i>Verify Pending
+                    </button>
+                    <button class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                        <i class="fas fa-download mr-2"></i>Export Directory
+                    </button>
+                    <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                        <i class="fas fa-plus mr-2"></i>Add Business
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6 micro-interaction">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-building text-primary text-xl"></i>
+                        </div>
+                        <span class="text-success text-sm font-medium flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>+8.2%
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-1">1,247</h3>
+                    <p class="text-text-secondary text-sm">Total Businesses</p>
+                </div>
+
+                <div class="card p-6 micro-interaction">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-check-circle text-success text-xl"></i>
+                        </div>
+                        <span class="text-success text-sm font-medium flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>+12.5%
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-1">1,089</h3>
+                    <p class="text-text-secondary text-sm">Verified Businesses</p>
+                </div>
+
+                <div class="card p-6 micro-interaction">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-warning text-xl"></i>
+                        </div>
+                        <span class="text-warning text-sm font-medium">Pending</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-1">158</h3>
+                    <p class="text-text-secondary text-sm">Awaiting Verification</p>
+                </div>
+
+               
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                <!-- Business Table Section -->
+                <div class="xl:col-span-3">
+                    <!-- Filter Toolbar -->
+                    <div class="card p-4 mb-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+                            <div class="flex items-center gap-4 flex-1">
+                                <div class="relative">
+                                    <select class="pl-10 pr-8 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-white">
+                                        <option>All Categories</option>
+                                        <option>Hotel And Resort</option>
+                                        <option>Travel And Tours</option>
+                                        <option>Restaurants</option>
+                                        <option>Health And Wellness</option>
+                                
+                                    </select>
+                                    <i class="fas fa-layer-group absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                </div>
+
+                                <div class="relative">
+                                    <select class="pl-10 pr-8 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-white">
+                                        <option>All Locations</option>
+                                        <option>Tanza, Tanza</option>
+                                        <option>Calibuyo, Tanza</option>
+                                        <option>Halayhay, Tanza</option>
+                                        <option>Amaya, Tanza</option>
+                                    </select>
+                                    <i class="fas fa-map-marker-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                </div>
+
+                                <div class="relative">
+                                    <select class="pl-10 pr-8 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-white">
+                                        <option>All Status</option>
+                                        <option>Verified</option>
+                                        <option>Pending</option>
+                                        <option>Rejected</option>
+                                    </select>
+                                    <i class="fas fa-shield-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                    <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button class="p-2 border border-border rounded-lg hover:bg-slate-50 transition-tourism" title="Reset Filters">
+                                    <i class="fas fa-undo text-text-secondary"></i>
+                                </button>
+                                <button class="p-2 border border-border rounded-lg hover:bg-slate-50 transition-tourism" title="Filter Options">
+                                    <i class="fas fa-filter text-text-secondary"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Active Filters -->
+                        <div class="flex items-center gap-2 mt-4">
+                            <span class="text-sm text-text-secondary">Active filters:</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full flex items-center gap-2">
+                                Hotels & Resorts
+                                <button class="hover:bg-primary/20 rounded-full p-1">
+                                    <i class="fas fa-times text-xs"></i>
+                                </button>
+                            </span>
+                            <span class="px-3 py-1 bg-success/10 text-success text-sm rounded-full flex items-center gap-2">
+                                Verified
+                                <button class="hover:bg-success/20 rounded-full p-1">
+                                    <i class="fas fa-times text-xs"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Business Table -->
+                    <div class="card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-slate-50 border-b border-border">
+                                    <tr>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">
+                                            <div class="flex items-center gap-2">
+                                                Business Name
+                                                <i class="fas fa-sort text-text-secondary text-xs cursor-pointer hover:text-text-primary"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">
+                                            <div class="flex items-center gap-2">
+                                                Category
+                                                <i class="fas fa-sort text-text-secondary text-xs cursor-pointer hover:text-text-primary"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">
+                                            <div class="flex items-center gap-2">
+                                                Location
+                                                <i class="fas fa-sort text-text-secondary text-xs cursor-pointer hover:text-text-primary"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">
+                                            <div class="flex items-center gap-2">
+                                                Rating
+                                                <i class="fas fa-sort text-text-secondary text-xs cursor-pointer hover:text-text-primary"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">Status</th>
+                                        <th class="text-left py-4 px-6 font-semibold text-text-primary">Partnership</th>
+                                        <th class="text-right py-4 px-6 font-semibold text-text-primary">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border">
+                                    <!-- Business Row 1 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism cursor-pointer" onclick="openBusinessDetails('ocean-breeze-resort')">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzamap.img.jpg" alt="Ocean Breeze Resort" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <h4 class="font-semibold text-text-primary">Tanza Oasis Resort</h4>
+                                                    <p class="text-sm text-text-secondary">Luxury beachfront resort</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Tourist Spot</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-map-marker-alt text-text-secondary text-sm"></i>
+                                                <span class="text-text-primary">Tanza, Cavite</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                </div>
+                                                <span class="text-sm font-medium text-text-primary">4.8</span>
+                                                <span class="text-xs text-text-secondary">(247)</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-success/10 text-success text-sm rounded-full flex items-center gap-2 w-fit">
+                                                <i class="fas fa-check-circle text-xs"></i>
+                                                Verified
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Premium</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="Edit Business">
+                                                    <i class="fas fa-edit text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="View Profile">
+                                                    <i class="fas fa-eye text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="More Options">
+                                                    <i class="fas fa-ellipsis-v text-text-secondary"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Business Row 2 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism cursor-pointer" onclick="openBusinessDetails('mountain-view-lodge')">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzamap.img.jpg" alt="Mountain View Lodge" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <h4 class="font-semibold text-text-primary">Tanza Oasis Resort</h4>
+                                                    <p class="text-sm text-text-secondary">Cozy mountain retreat</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Tourist Spot</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-map-marker-alt text-text-secondary text-sm"></i>
+                                                <span class="text-text-primary">Tanza, Cavite</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="far fa-star text-warning text-sm"></i>
+                                                </div>
+                                                <span class="text-sm font-medium text-text-primary">4.2</span>
+                                                <span class="text-xs text-text-secondary">(89)</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-warning/10 text-warning text-sm rounded-full flex items-center gap-2 w-fit">
+                                                <i class="fas fa-clock text-xs"></i>
+                                                Pending
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-slate-100 text-text-secondary text-sm rounded-full">Standard</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="Edit Business">
+                                                    <i class="fas fa-edit text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="View Profile">
+                                                    <i class="fas fa-eye text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="More Options">
+                                                    <i class="fas fa-ellipsis-v text-text-secondary"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Business Row 3 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism cursor-pointer" onclick="openBusinessDetails('sakura-tours')">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzamap.img.jpg" alt="Sakura Tours" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <h4 class="font-semibold text-text-primary">Tanza Oasis Resort</h4>
+                                                    <p class="text-sm text-text-secondary">Cultural tour experiences</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-accent/10 text-accent text-sm rounded-full">Tourist Spot</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-map-marker-alt text-text-secondary text-sm"></i>
+                                                <span class="text-text-primary">Tanza, Cavite</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                </div>
+                                                <span class="text-sm font-medium text-text-primary">4.9</span>
+                                                <span class="text-xs text-text-secondary">(156)</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-success/10 text-success text-sm rounded-full flex items-center gap-2 w-fit">
+                                                <i class="fas fa-check-circle text-xs"></i>
+                                                Verified
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">Premium</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="Edit Business">
+                                                    <i class="fas fa-edit text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="View Profile">
+                                                    <i class="fas fa-eye text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="More Options">
+                                                    <i class="fas fa-ellipsis-v text-text-secondary"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Business Row 4 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism cursor-pointer" onclick="openBusinessDetails('bistro-paris')">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzamap.img.jpg" alt="Bistro Paris" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <h4 class="font-semibold text-text-primary">Tanza Oasis Resort</h4>
+                                                    <p class="text-sm text-text-secondary">Authentic French cuisine</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-warning/10 text-warning text-sm rounded-full">Restaurants</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-map-marker-alt text-text-secondary text-sm"></i>
+                                                <span class="text-text-primary">Tanza, Cavite</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="far fa-star text-warning text-sm"></i>
+                                                </div>
+                                                <span class="text-sm font-medium text-text-primary">4.3</span>
+                                                <span class="text-xs text-text-secondary">(203)</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-success/10 text-success text-sm rounded-full flex items-center gap-2 w-fit">
+                                                <i class="fas fa-check-circle text-xs"></i>
+                                                Verified
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-slate-100 text-text-secondary text-sm rounded-full">Standard</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="Edit Business">
+                                                    <i class="fas fa-edit text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="View Profile">
+                                                    <i class="fas fa-eye text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="More Options">
+                                                    <i class="fas fa-ellipsis-v text-text-secondary"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Business Row 5 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism cursor-pointer" onclick="openBusinessDetails('adventure-sports')">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzamap.img.jpg" alt="Adventure Sports Co" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <h4 class="font-semibold text-text-primary">Tanza Oasis Resort</h4>
+                                                    <p class="text-sm text-text-secondary">Extreme sports activities</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-error/10 text-error text-sm rounded-full">Tourist Spot</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-map-marker-alt text-text-secondary text-sm"></i>
+                                                <span class="text-text-primary">Tanza, Cavite</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                    <i class="fas fa-star text-warning text-sm"></i>
+                                                </div>
+                                                <span class="text-sm font-medium text-text-primary">4.7</span>
+                                                <span class="text-xs text-text-secondary">(124)</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-error/10 text-error text-sm rounded-full flex items-center gap-2 w-fit">
+                                                <i class="fas fa-times-circle text-xs"></i>
+                                                Rejected
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="px-3 py-1 bg-slate-100 text-text-secondary text-sm rounded-full">Standard</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="Edit Business">
+                                                    <i class="fas fa-edit text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="View Profile">
+                                                    <i class="fas fa-eye text-text-secondary"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-slate-100 rounded-lg transition-tourism" title="More Options">
+                                                    <i class="fas fa-ellipsis-v text-text-secondary"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between px-6 py-4 border-t border-border">
+                            <div class="text-sm text-text-secondary">
+                                Showing 1 to 5 of 1,247 businesses
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="px-3 py-2 bg-primary text-white rounded-lg">1</button>
+                                <button class="px-3 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">2</button>
+                                <button class="px-3 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">3</button>
+                                <span class="px-2 text-text-secondary">...</span>
+                                <button class="px-3 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">250</button>
+                                <button class="px-3 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Panel -->
+                <div class="xl:col-span-1 space-y-6">
+                    <!-- Category Distribution -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Category Distribution</h3>
+                        <div class="h-64 flex items-center justify-center">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div class="mt-4 space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-primary rounded-full"></div>
+                                    <span>Hotels & Resorts</span>
+                                </div>
+                                <span class="font-medium">42%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                    <span>Restaurants</span>
+                                </div>
+                                <span class="font-medium">28%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span>Tour Operators</span>
+                                </div>
+                                <span class="font-medium">18%</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-error rounded-full"></div>
+                                    <span>Activities</span>
+                                </div>
+                                <span class="font-medium">12%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geographic Spread -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Geographic Spread</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bali" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <p class="font-medium text-text-primary">Tanza, Cavite</p>
+                                        <p class="text-xs text-text-secondary">247 businesses</p>
+                                    </div>
+                                </div>
+                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                    <div class="w-3/4 bg-primary h-2 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.pexels.com/photos/161901/paris-sunset-france-monument-161901.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Paris" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <p class="font-medium text-text-primary">Calibuyo, Tanza</p>
+                                        <p class="text-xs text-text-secondary">189 businesses</p>
+                                    </div>
+                                </div>
+                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                    <div class="w-3/5 bg-secondary h-2 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.pixabay.com/photo/2020/04/30/16/01/tokyo-5114098_1280.jpg" alt="Tokyo" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <p class="font-medium text-text-primary">Amaya, Tanza</p>
+                                        <p class="text-xs text-text-secondary">156 businesses</p>
+                                    </div>
+                                </div>
+                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                    <div class="w-1/2 bg-accent h-2 rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="New York" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    <div>
+                                        <p class="font-medium text-text-primary">Halayhay, Tanza</p>
+                                        <p class="text-xs text-text-secondary">134 businesses</p>
+                                    </div>
+                                </div>
+                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                    <div class="w-2/5 bg-warning h-2 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Performance Metrics</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-success/5 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-star text-success"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Avg Rating</p>
+                                        <p class="text-xs text-text-secondary">All businesses</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-bold text-success">4.6</p>
+                                    <p class="text-xs text-success">+0.2 this month</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-chart-line text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Growth Rate</p>
+                                        <p class="text-xs text-text-secondary">Monthly new businesses</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-bold text-primary">+12%</p>
+                                    <p class="text-xs text-primary">vs last month</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 bg-secondary/5 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-handshake text-secondary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-text-primary">Partnership Rate</p>
+                                        <p class="text-xs text-text-secondary">Premium partnerships</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xl font-bold text-secondary">27%</p>
+                                    <p class="text-xs text-secondary">of all businesses</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Business Details Slide-over Panel -->
+    <div id="businessDetailsPanel" class="fixed inset-y-0 right-0 w-96 bg-surface border-l border-border transform translate-x-full transition-transform duration-300 z-60 overflow-y-auto hidden">
+        <div class="p-6">
+            <!-- Panel Header -->
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-text-primary">Business Details</h3>
+                <button onclick="closeBusinessDetails()" class="p-2 hover:bg-slate-100 rounded-lg transition-tourism">
+                    <i class="fas fa-times text-text-secondary"></i>
+                </button>
+            </div>
+
+            <!-- Business Info -->
+            <div class="space-y-6">
+                <div class="text-center">
+                    <img id="businessDetailImage" src alt class="w-24 h-24 rounded-lg object-cover mx-auto mb-4" />
+                    <h4 id="businessDetailName" class="text-lg font-semibold text-text-primary mb-2"></h4>
+                    <p id="businessDetailDescription" class="text-text-secondary text-sm mb-4"></p>
+                    <div id="businessDetailRating" class="flex items-center justify-center gap-2 mb-4"></div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-4 bg-slate-50 rounded-lg">
+                        <p class="text-2xl font-bold text-text-primary">4.8</p>
+                        <p class="text-xs text-text-secondary">Rating</p>
+                    </div>
+                    <div class="text-center p-4 bg-slate-50 rounded-lg">
+                        <p class="text-2xl font-bold text-text-primary">247</p>
+                        <p class="text-xs text-text-secondary">Reviews</p>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <h5 class="font-semibold text-text-primary mb-3">Contact Information</h5>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-text-secondary w-4"></i>
+                            <span class="text-sm text-text-primary">Jl. Pantai Kuta, Bali, Indonesia</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-phone text-text-secondary w-4"></i>
+                            <span class="text-sm text-text-primary">+62 361 123456</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-text-secondary w-4"></i>
+                            <span class="text-sm text-text-primary">info@oceanbreeze.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-globe text-text-secondary w-4"></i>
+                            <span class="text-sm text-text-primary">www.oceanbreeze.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reviews -->
+                <div>
+                    <h5 class="font-semibold text-text-primary mb-3">Recent Reviews</h5>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-50 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                </div>
+                                <span class="text-xs text-text-secondary">Sarah Johnson</span>
+                            </div>
+                            <p class="text-xs text-text-primary">"Amazing beachfront location with excellent service. Highly recommended!"</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg">
+                            <div class="flex items-center gap-2 mb-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="fas fa-star text-warning text-xs"></i>
+                                    <i class="far fa-star text-warning text-xs"></i>
+                                </div>
+                                <span class="text-xs text-text-secondary">Mike Chen</span>
+                            </div>
+                            <p class="text-xs text-text-primary">"Great facilities and beautiful views. Perfect for a romantic getaway."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3">
+                    <button class="w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                        <i class="fas fa-edit mr-2"></i>Edit Business
+                    </button>
+                    <button class="w-full px-4 py-3 border border-border rounded-lg text-text-primary hover:bg-slate-50 transition-tourism">
+                        <i class="fas fa-shield-alt mr-2"></i>Manage Verification
+                    </button>
+                    <button class="w-full px-4 py-3 border border-border rounded-lg text-text-primary hover:bg-slate-50 transition-tourism">
+                        <i class="fas fa-chart-bar mr-2"></i>View Analytics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Business Details Panel
+        function openBusinessDetails(businessId) {
+            const panel = document.getElementById('businessDetailsPanel');
+            panel.classList.remove('hidden');
+            setTimeout(() => {
+                panel.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeBusinessDetails() {
+            const panel = document.getElementById('businessDetailsPanel');
+            panel.classList.add('translate-x-full');
+            setTimeout(() => {
+                panel.classList.add('hidden');
+            }, 300);
+        }
+
+        // Category Distribution Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hotels & Resorts', 'Restaurants', 'Tour Operators', 'Activities'],
+                datasets: [{
+                    data: [42, 28, 18, 12],
+                    backgroundColor: ['#2563EB', '#F59E0B', '#0891B2', '#EF4444'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+</body>
+</html>

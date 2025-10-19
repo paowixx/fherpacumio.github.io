@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings & Configuration - Tourism Admin</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body class="bg-background font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-surface border-b border-border z-50 h-16">
+        <div class="flex items-center justify-between px-6 h-full">
+            <!-- Logo and Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-tourism">
+                    <i class="fas fa-bars text-text-primary"></i>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mountain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-text-primary hidden sm:block">Tourism Admin</h1>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search settings, configurations..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+                
+
+                <!-- User Profile -->
+                <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <span class="text-sm font-medium text-text-primary hidden sm:block">Joshua Sanchez Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-surface border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <nav class="p-4 space-y-2">
+            <a href="dashboard_overview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="destinations_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>Destinations</span>
+            </a>
+            <a href="user_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+           
+            <a href="business_directory.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-building w-5"></i>
+                <span>Businesses</span>
+            </a>
+             <a href="reviews_ratings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-star w-5"></i>
+                <span>Reports</span>
+            </a>
+            
+            </a>
+            <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-tourism">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-16 min-h-screen">
+        <div class="flex">
+            <!-- Main Settings Area -->
+            <div class="flex-1 p-6">
+                <!-- Page Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-text-primary mb-2">Settings</h2>
+                        <p class="text-text-secondary">Manage system settings, user preferences, and platform configurations</p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-4 sm:mt-0">
+                        <button class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                            <i class="fas fa-undo mr-2"></i>Reset to Defaults
+                        </button>
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                            <i class="fas fa-save mr-2"></i>Save All Changes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="border-b border-border mb-8">
+                    <nav class="flex space-x-8 overflow-x-auto">
+                        <button class="tab-button active px-1 py-4 border-b-2 border-primary text-primary font-medium whitespace-nowrap" data-tab="general">
+                            <i class="fas fa-cog mr-2"></i>General
+                        </button>
+                        <button class="tab-button px-1 py-4 border-b-2 border-transparent text-text-secondary hover:text-text-primary hover:border-slate-300 font-medium whitespace-nowrap transition-tourism" data-tab="users">
+                            <i class="fas fa-users mr-2"></i>Users & Roles
+                        </button>
+                        
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- General Settings Tab -->
+                    <div id="general" class="tab-pane active">
+                        <div class="space-y-8">
+                            <!-- Platform Settings -->
+                            <div class="card p-6">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-lg font-semibold text-text-primary">Platform Settings</h3>
+                                    <div class="flex items-center gap-2 text-sm text-success">
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>Auto-saved</span>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-text-primary mb-2">Platform Name</label>
+                                        <input type="text" value="Tourism Admin Dashboard" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-text-primary mb-2">Default Language</label>
+                                        <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>English</option>
+                                            <option>Tagalog</option>
+                                           
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-text-primary mb-2">Time Zone</label>
+                                        <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>PHST</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-text-primary mb-2">Currency</label>
+                                        <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>PHP (₱)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Branding Settings -->
+                            
+
+                            <!-- Data & Analytics -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Data & Analytics</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Enable Analytics Tracking</h4>
+                                            <p class="text-sm text-text-secondary">Collect usage data to improve platform performance</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Data Retention Period</h4>
+                                            <p class="text-sm text-text-secondary">How long to keep user activity data</p>
+                                        </div>
+                                        <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>30 days</option>
+                                            <option>90 days</option>
+                                            <option>1 year</option>
+                                            <option>2 years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Users & Roles Tab -->
+                    <div id="users" class="tab-pane hidden">
+                        <div class="space-y-8">
+                            <!-- User Roles -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">User Roles & Permissions</h3>
+                                <div class="space-y-4">
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="font-medium text-text-primary">Super Administrator</h4>
+                                            <span class="px-2 py-1 bg-error/10 text-error text-xs rounded-full">Full Access</span>
+                                        </div>
+                                        <p class="text-sm text-text-secondary mb-3">Complete system access with all permissions</p>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Dashboard</span>
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Users</span>
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Destinations</span>
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Settings</span>
+                                        </div>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="font-medium text-text-primary">Tourism Manager</h4>
+                                            <span class="px-2 py-1 bg-warning/10 text-warning text-xs rounded-full">Limited Access</span>
+                                        </div>
+                                        <p class="text-sm text-text-secondary mb-3">Manage destinations and business listings</p>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Dashboard</span>
+                                            <span class="px-2 py-1 bg-slate-100 text-text-secondary rounded">Users</span>
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Destinations</span>
+                                            <span class="px-2 py-1 bg-slate-100 text-text-secondary rounded">Settings</span>
+                                        </div>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <h4 class="font-medium text-text-primary">Content Editor</h4>
+                                            <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">Content Only</span>
+                                        </div>
+                                        <p class="text-sm text-text-secondary mb-3">Edit content and manage reviews</p>
+                                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Dashboard</span>
+                                            <span class="px-2 py-1 bg-slate-100 text-text-secondary rounded">Users</span>
+                                            <span class="px-2 py-1 bg-success/10 text-success rounded">Reviews</span>
+                                            <span class="px-2 py-1 bg-slate-100 text-text-secondary rounded">Settings</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="mt-4 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary/5 transition-tourism">
+                                    <i class="fas fa-plus mr-2"></i>Add New Role
+                                </button>
+                            </div>
+
+                            <!-- Registration Settings -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Registration Settings</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Allow User Registration</h4>
+                                            <p class="text-sm text-text-secondary">Enable new users to create accounts</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Email Verification Required</h4>
+                                            <p class="text-sm text-text-secondary">Require email verification for new accounts</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Admin Approval Required</h4>
+                                            <p class="text-sm text-text-secondary">New accounts need admin approval</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Tab -->
+                    <div id="notifications" class="tab-pane hidden">
+                        <div class="space-y-8">
+                            <!-- Email Templates -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Email Templates</h3>
+                                <div class="space-y-4">
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h4 class="font-medium text-text-primary">Welcome Email</h4>
+                                            <button class="text-primary hover:text-primary-700 text-sm">Edit Template</button>
+                                        </div>
+                                        <p class="text-sm text-text-secondary">Sent to new users after registration</p>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h4 class="font-medium text-text-primary">Password Reset</h4>
+                                            <button class="text-primary hover:text-primary-700 text-sm">Edit Template</button>
+                                        </div>
+                                        <p class="text-sm text-text-secondary">Sent when users request password reset</p>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h4 class="font-medium text-text-primary">Review Notification</h4>
+                                            <button class="text-primary hover:text-primary-700 text-sm">Edit Template</button>
+                                        </div>
+                                        <p class="text-sm text-text-secondary">Sent when new reviews are posted</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Alert Preferences -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Alert Preferences</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">New User Registrations</h4>
+                                            <p class="text-sm text-text-secondary">Get notified when new users register</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Business Applications</h4>
+                                            <p class="text-sm text-text-secondary">Alert when new businesses apply</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">System Maintenance</h4>
+                                            <p class="text-sm text-text-secondary">Notifications about system updates</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations Tab -->
+                    <div id="integrations" class="tab-pane hidden">
+                        <div class="space-y-8">
+                            <!-- API Keys -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">API Keys & Services</h3>
+                                <div class="space-y-4">
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                                                    <i class="fas fa-map text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary">Google Maps API</h4>
+                                                    <p class="text-sm text-text-secondary">For location services and mapping</p>
+                                                </div>
+                                            </div>
+                                            <span class="px-2 py-1 bg-success/10 text-success text-xs rounded-full">Connected</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <input type="password" value="AIzaSyB..." class="flex-1 px-3 py-2 border border-border rounded text-sm font-mono" readonly />
+                                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="px-3 py-2 border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                                    <i class="fas fa-envelope text-secondary"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary">SendGrid Email API</h4>
+                                                    <p class="text-sm text-text-secondary">For transactional emails</p>
+                                                </div>
+                                            </div>
+                                            <span class="px-2 py-1 bg-warning/10 text-warning text-xs rounded-full">Pending</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <input type="password" placeholder="Enter API key..." class="flex-1 px-3 py-2 border border-border rounded text-sm font-mono" />
+                                            <button class="px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                                                Connect
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="border border-border rounded-lg p-4">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                                    <i class="fas fa-cloud text-accent"></i>
+                                                </div>
+                                                <div>
+                                                    <h4 class="font-medium text-text-primary">AWS S3 Storage</h4>
+                                                    <p class="text-sm text-text-secondary">For file uploads and storage</p>
+                                                </div>
+                                            </div>
+                                            <span class="px-2 py-1 bg-success/10 text-success text-xs rounded-full">Connected</span>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <input type="password" value="AKIA..." class="px-3 py-2 border border-border rounded text-sm font-mono" readonly />
+                                            <input type="password" value="wJalrXUt..." class="px-3 py-2 border border-border rounded text-sm font-mono" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             
+
+                    <!-- Security Tab -->
+                    <div id="security" class="tab-pane hidden">
+                        <div class="space-y-8">
+                            <!-- Authentication Settings -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Authentication Settings</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Two-Factor Authentication</h4>
+                                            <p class="text-sm text-text-secondary">Require 2FA for admin accounts</p>
+                                        </div>
+                                        <label class="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" checked class="sr-only peer" />
+                                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Session Timeout</h4>
+                                            <p class="text-sm text-text-secondary">Auto-logout after inactivity</p>
+                                        </div>
+                                        <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>30 minutes</option>
+                                            <option>1 hour</option>
+                                            <option>2 hours</option>
+                                            <option>4 hours</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Password Complexity</h4>
+                                            <p class="text-sm text-text-secondary">Minimum password requirements</p>
+                                        </div>
+                                        <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>Basic (8 chars)</option>
+                                            <option>Medium (8 chars + symbols)</option>
+                                            <option>Strong (12 chars + mixed)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Access Controls -->
+                            <div class="card p-6">
+                                <h3 class="text-lg font-semibold text-text-primary mb-6">Access Controls</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-text-primary mb-2">IP Whitelist</label>
+                                        <textarea rows="3" placeholder="Enter IP addresses (one per line)&#10;192.168.1.1&#10;10.0.0.1" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism"></textarea>
+                                        <p class="text-xs text-text-secondary mt-1">Leave empty to allow all IPs</p>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Login Attempt Limit</h4>
+                                            <p class="text-sm text-text-secondary">Max failed attempts before lockout</p>
+                                        </div>
+                                        <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>3 attempts</option>
+                                            <option>5 attempts</option>
+                                            <option>10 attempts</option>
+                                            <option>Unlimited</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Account Lockout Duration</h4>
+                                            <p class="text-sm text-text-secondary">How long to lock accounts</p>
+                                        </div>
+                                        <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                                            <option>15 minutes</option>
+                                            <option>30 minutes</option>
+                                            <option>1 hour</option>
+                                            <option>24 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Security Logs -->
+                            <div class="card p-6">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-lg font-semibold text-text-primary">Recent Security Events</h3>
+                                    <button class="text-primary hover:text-primary-700 text-sm font-medium">View All Logs</button>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3 p-3 border border-border rounded-lg">
+                                        <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-check text-success text-sm"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-text-primary">Successful admin login</p>
+                                            <p class="text-xs text-text-secondary">john.admin@tourism.com - 192.168.1.100</p>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">2 min ago</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 border border-border rounded-lg">
+                                        <div class="w-8 h-8 bg-warning/10 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-exclamation-triangle text-warning text-sm"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-text-primary">Failed login attempt</p>
+                                            <p class="text-xs text-text-secondary">unknown@email.com - 203.0.113.1</p>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">15 min ago</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 border border-border rounded-lg">
+                                        <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-key text-primary text-sm"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-text-primary">Password changed</p>
+                                            <p class="text-xs text-text-secondary">sarah.manager@tourism.com</p>
+                                        </div>
+                                        <span class="text-xs text-text-secondary">1 hour ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+          
+                <!-- System Status -->
+                
+
+                <!-- Recent Changes -->
+               
+
+                <!-- Quick Links -->
+                
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Tab Navigation
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and panes
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active', 'border-primary', 'text-primary');
+                    btn.classList.add('border-transparent', 'text-text-secondary');
+                });
+                tabPanes.forEach(pane => {
+                    pane.classList.add('hidden');
+                    pane.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding pane
+                button.classList.add('active', 'border-primary', 'text-primary');
+                button.classList.remove('border-transparent', 'text-text-secondary');
+                document.getElementById(targetTab).classList.remove('hidden');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Toggle switches
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Add visual feedback for changes
+                const parent = this.closest('.card');
+                if (parent) {
+                    parent.classList.add('success-animation');
+                    setTimeout(() => {
+                        parent.classList.remove('success-animation');
+                    }, 300);
+                }
+            });
+        });
+
+        // Form validation and auto-save simulation
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('change', function() {
+                // Simulate auto-save
+                const autoSaveIndicator = document.querySelector('.text-success');
+                if (autoSaveIndicator) {
+                    autoSaveIndicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Saving...</span>';
+                    setTimeout(() => {
+                        autoSaveIndicator.innerHTML = '<i class="fas fa-check-circle"></i> <span>Auto-saved</span>';
+                    }, 1000);
+                }
+            });
+        });
+
+        // Password visibility toggle
+        document.querySelectorAll('.fa-eye').forEach(eyeIcon => {
+            eyeIcon.addEventListener('click', function() {
+                const input = this.closest('.flex').querySelector('input[type="password"]');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        });
+
+        // Copy to clipboard functionality
+        document.querySelectorAll('.fa-copy').forEach(copyIcon => {
+            copyIcon.addEventListener('click', function() {
+                const input = this.closest('.flex').querySelector('input');
+                navigator.clipboard.writeText(input.value).then(() => {
+                    // Show success feedback
+                    const originalIcon = this.className;
+                    this.className = 'fas fa-check text-success';
+                    setTimeout(() => {
+                        this.className = originalIcon;
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
