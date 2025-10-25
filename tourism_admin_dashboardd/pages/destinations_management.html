@@ -88,12 +88,7 @@
                     <p class="text-text-secondary">Manage and oversee all tourism destinations in your network</p>
                 </div>
                 <div class="flex items-center gap-3 mt-4 lg:mt-0">
-                    <button class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
-                        <i class="fas fa-download mr-2"></i>Export
-                    </button>
-                    <button class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
-                        <i class="fas fa-upload mr-2"></i>Import
-                    </button>
+                    
                     <button id="addDestinationBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
                         <i class="fas fa-plus mr-2"></i>Add Destination
                     </button>
@@ -130,18 +125,7 @@
 
                 
 
-                <div class="card p-6 micro-interaction">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-clock text-warning text-xl"></i>
-                        </div>
-                        <span class="text-error text-sm font-medium flex items-center">
-                            <i class="fas fa-arrow-down mr-1"></i>-2.1%
-                        </span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-text-primary mb-1">23</h3>
-                    <p class="text-text-secondary text-sm">Pending Review</p>
-                </div>
+                
             </div>
 
             <!-- Main Content Grid -->
@@ -160,10 +144,10 @@
                             <div class="flex items-center gap-3">
                                 <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                     <option>All Baranggay</option>
-                                    <option>North America</option>
-                                    <option>Europe</option>
-                                    <option>Asia Pacific</option>
-                                    <option>South America</option>
+                                    <option>Amaya</option>
+                                    <option>Halayhay</option>
+                                    <option>Sahud Ulan</option>
+                                    <option>Postema</option>
                                 </select>
                                 <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                                     <option>All Categories</option>
@@ -179,12 +163,7 @@
                                     <option>Inactive</option>
                                     <option>Pending</option>
                                 </select>
-                                <button class="p-2 text-text-secondary hover:text-text-primary transition-tourism">
-                                    <i class="fas fa-filter"></i>
-                                </button>
-                                <button class="p-2 text-text-secondary hover:text-text-primary transition-tourism">
-                                    <i class="fas fa-redo"></i>
-                                </button>
+                                
                             </div>
                         </div>
 
@@ -589,7 +568,7 @@
                                 </div>
                                 <div>
                                     <p class="font-medium text-text-primary">Bulk Import</p>
-                                    <p class="text-sm text-text-secondary">Import from CSV</p>
+                                    <p class="text-sm text-text-secondary">Import</p>
                                 </div>
                             </button>
                             <button class="w-full flex items-center gap-3 p-3 text-left border border-border rounded-lg hover:bg-slate-50 transition-tourism">
@@ -606,7 +585,7 @@
                                     <i class="fas fa-cog text-warning"></i>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-text-primary">Bulk Operations</p>
+                                    <p class="font-medium text-text-primary">Operations</p>
                                     <p class="text-sm text-text-secondary">Manage selected items</p>
                                 </div>
                             </button>
@@ -769,7 +748,7 @@
         new Chart(categoryCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Beach Resorts', 'Mountain Trails', 'City Tours', 'Cultural Sites'],
+                labels: ['Beach Resorts', 'Food Spot', 'Tourist Spot', 'Health And Wellness'],
                 datasets: [{
                     data: [89, 67, 54, 37],
                     backgroundColor: ['#2563EB', '#059669', '#0891B2', '#F59E0B'],
