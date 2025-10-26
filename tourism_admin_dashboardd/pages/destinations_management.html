@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destinations Management - Tourism Admin</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-surface border-b border-border z-50 h-16">
+        <div class="flex items-center justify-between px-6 h-full">
+            <!-- Logo and Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-tourism">
+                    <i class="fas fa-bars text-text-primary"></i>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mountain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-text-primary hidden sm:block">Tourism Admin</h1>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search destinations, users, businesses..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+                
+
+                <!-- User Profile -->
+                <div class="flex items-center gap-3">
+                    <img src="../pixs/josh.jpg" alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <span class="text-sm font-medium text-text-primary hidden sm:block">Joshua Sanchez Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-surface border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <nav class="p-4 space-y-2">
+            <a href="dashboard_overview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="destinations_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-tourism">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>Destinations</span>
+            </a>
+            <a href="user_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+            <a href="business_directory.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-building w-5"></i>
+                <span>Businesses</span>
+            </a>
+            <a href="reviews_ratings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-star w-5"></i>
+                <span>Reports</span>
+            </a>
+            
+            <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-16 min-h-screen">
+        <div class="p-6">
+            <!-- Page Header -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-text-primary mb-2">Destinations Management</h2>
+                    <p class="text-text-secondary">Manage and oversee all tourism destinations in your network</p>
+                </div>
+                <div class="flex items-center gap-3 mt-4 lg:mt-0">
+                    
+                    <button id="addDestinationBtn" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                        <i class="fas fa-plus mr-2"></i>Add Destination
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="card p-6 micro-interaction">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                        </div>
+                        <span class="text-success text-sm font-medium flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>+5.2%
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-1">247</h3>
+                    <p class="text-text-secondary text-sm">Total Destinations</p>
+                </div>
+
+                <div class="card p-6 micro-interaction">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-eye text-secondary text-xl"></i>
+                        </div>
+                        <span class="text-success text-sm font-medium flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>+12.8%
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-text-primary mb-1">1.2M</h3>
+                    <p class="text-text-secondary text-sm">Total Visitors</p>
+                </div>
+
+                
+
+                
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+                <!-- Destinations Table -->
+                <div class="xl:col-span-3">
+                    <!-- Filters -->
+                    <div class="card p-6 mb-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center gap-4 mb-4">
+                            <div class="flex-1">
+                                <div class="relative">
+                                    <input type="text" placeholder="Search destinations..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All Baranggay</option>
+                                    <option>Amaya</option>
+                                    <option>Halayhay</option>
+                                    <option>Sahud Ulan</option>
+                                    <option>Postema</option>
+                                </select>
+                                <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All Categories</option>
+                                    <option>Beach Resort</option>
+                                    <option>Food Spot</option>
+                                    <option>Tourist Spot</option>
+                                    <option>Lodging</option>
+                                    
+                                </select>
+                                <select class="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All Status</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                    <option>Pending</option>
+                                </select>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Active Filters -->
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="text-sm text-text-secondary">Active filters:</span>
+                            <span class="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
+                                Beach Resort
+                                <button class="ml-1 hover:text-primary-700">
+                                    <i class="fas fa-times text-xs"></i>
+                                </button>
+                            </span>
+                            <span class="inline-flex items-center gap-1 px-3 py-1 bg-secondary/10 text-secondary text-sm rounded-full">
+                                Active
+                                <button class="ml-1 hover:text-secondary-700">
+                                    <i class="fas fa-times text-xs"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Destinations Table -->
+                    <div class="card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-slate-50 border-b border-border">
+                                    <tr>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <span>Destination</span>
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                Location
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                Category
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                Visitors
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                Rating
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">
+                                            <div class="flex items-center gap-2">
+                                                Status
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 text-sm font-medium text-text-secondary">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border">
+                                    <!-- Table Row 1 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <img src="../pixs/tanzapic.jpg" alt="Bali Beach Resort" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <button class="font-medium text-text-primary hover:text-primary transition-tourism">Tanza Oasis Hotel and Resort</button>
+                                                    <p class="text-sm text-text-secondary">Tourist Spot</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-text-secondary">Tanza, Cavite</td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                                                Beach Resort
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm font-data text-text-primary">45,230</td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="text-sm font-medium text-text-primary">4.8</span>
+                                                <div class="flex text-warning text-xs">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
+                                                Active
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-accent transition-tourism">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-error transition-tourism">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table Row 2 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <img src="../pixs/tanzapic.jpg" alt="Swiss Alps Trail" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <button class="font-medium text-text-primary hover:text-primary transition-tourism">Tanza Oasis Hotel and Resort</button>
+                                                    <p class="text-sm text-text-secondary">Tourist Spot</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-text-secondary">Tanza, Cavite</td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                                                 Beach Resort
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm font-data text-text-primary">32,150</td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="text-sm font-medium text-text-primary">4.6</span>
+                                                <div class="flex text-warning text-xs">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
+                                                Active
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-accent transition-tourism">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-error transition-tourism">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table Row 3 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <img src="../pixs/tanzapic.jpg" alt="London City Tour" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <button class="font-medium text-text-primary hover:text-primary transition-tourism">Tanza Oasis Hotel and Resort</button>
+                                                    <p class="text-sm text-text-secondary">Tourist Spot</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-text-secondary">Tanza, Cavite</td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent">
+                                                 Beach Resort
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm font-data text-text-primary">28,940</td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="text-sm font-medium text-text-primary">4.5</span>
+                                                <div class="flex text-warning text-xs">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning">
+                                                Pending
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-accent transition-tourism">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-error transition-tourism">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table Row 4 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <img src="../pixs/tanzapic.jpg" alt="Kyoto Temple Complex" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <button class="font-medium text-text-primary hover:text-primary transition-tourism">Tanza Oasis Hotel and Resort</button>
+                                                    <p class="text-sm text-text-secondary">Tourist Spot</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-text-secondary">Tanza, Cavite</td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning">
+                                                 Beach Resort
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm font-data text-text-primary">38,720</td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="text-sm font-medium text-text-primary">4.9</span>
+                                                <div class="flex text-warning text-xs">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">
+                                                Active
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-accent transition-tourism">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-error transition-tourism">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table Row 5 -->
+                                    <tr class="hover:bg-slate-50 transition-tourism">
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-3">
+                                                <input type="checkbox" class="rounded border-border" />
+                                                <img src="../pixs/tanzapic.jpg" alt="Machu Picchu Trek" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <button class="font-medium text-text-primary hover:text-primary transition-tourism">Tanza Oasis Hotel and Resort</button>
+                                                    <p class="text-sm text-text-secondary">Tourist Spot</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm text-text-secondary">Tanza, Cavite</td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning">
+                                                 Beach Resort
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6 text-sm font-data text-text-primary">15,680</td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="text-sm font-medium text-text-primary">4.7</span>
+                                                <div class="flex text-warning text-xs">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error">
+                                                Inactive
+                                            </span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <div class="flex items-center gap-2">
+                                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-accent transition-tourism">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="p-2 text-text-secondary hover:text-error transition-tourism">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between px-6 py-4 border-t border-border">
+                            <div class="text-sm text-text-secondary">
+                                Showing 1 to 5 of 247 destinations
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-2 text-sm border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                                    Previous
+                                </button>
+                                <button class="px-3 py-2 text-sm bg-primary text-white rounded-lg">1</button>
+                                <button class="px-3 py-2 text-sm border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">2</button>
+                                <button class="px-3 py-2 text-sm border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">3</button>
+                                <span class="px-2 text-text-secondary">...</span>
+                                <button class="px-3 py-2 text-sm border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">50</button>
+                                <button class="px-3 py-2 text-sm border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="xl:col-span-1 space-y-6">
+                    <!-- Category Distribution -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Category Distribution</h3>
+                        <div class="h-48 flex items-center justify-center mb-4">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-primary rounded-full"></div>
+                                    <span>Beach Resorts</span>
+                                </div>
+                                <span class="font-medium">89</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                                    <span>Food Spot</span>
+                                </div>
+                                <span class="font-medium">67</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span>Tourist Spot</span>
+                                </div>
+                                <span class="font-medium">54</span>
+                            </div>
+                            
+        
+                                
+                                
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center gap-3 p-3 text-left border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-plus text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Add Destination</p>
+                                    <p class="text-sm text-text-secondary">Create new destination</p>
+                                </div>
+                            </button>
+                            <button class="w-full flex items-center gap-3 p-3 text-left border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                <div class="w-10 h-10 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-upload text-secondary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Bulk Import</p>
+                                    <p class="text-sm text-text-secondary">Import</p>
+                                </div>
+                            </button>
+                            <button class="w-full flex items-center gap-3 p-3 text-left border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-chart-bar text-accent"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Analytics Report</p>
+                                    <p class="text-sm text-text-secondary">Generate insights</p>
+                                </div>
+                            </button>
+                            <button class="w-full flex items-center gap-3 p-3 text-left border border-border rounded-lg hover:bg-slate-50 transition-tourism">
+                                <div class="w-10 h-10 bg-warning/10 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-cog text-warning"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-text-primary">Operations</p>
+                                    <p class="text-sm text-text-secondary">Manage selected items</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">Recent Updates</h3>
+                            <button class="text-primary hover:text-primary-700 text-sm font-medium">View All</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-plus text-success text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-text-primary font-medium">New destination added</p>
+                                    <p class="text-xs text-text-secondary">Amaya Beach was created</p>
+                                    <p class="text-xs text-text-secondary mt-1">2 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-edit text-primary text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-text-primary font-medium">Destination updated</p>
+                                    <p class="text-xs text-text-secondary">Amaya 1 Beach Resort information modified</p>
+                                    <p class="text-xs text-text-secondary mt-1">4 hours ago</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-warning/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-warning text-sm"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm text-text-primary font-medium">Review pending</p>
+                                    <p class="text-xs text-text-secondary">Calibuyo Beach awaiting approval</p>
+                                    <p class="text-xs text-text-secondary mt-1">6 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+    <!-- Add Destination Modal -->
+    <div id="addDestinationModal" class="fixed inset-0 bg-black/50 z-60 hidden flex items-center justify-center p-4">
+        <div class="bg-surface rounded-lg shadow-tourism-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between p-6 border-b border-border">
+                <h3 class="text-xl font-semibold text-text-primary">Add New Destination</h3>
+                <button id="closeModal" class="p-2 text-text-secondary hover:text-text-primary transition-tourism">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Destination Name</label>
+                        <input type="text" placeholder="Enter destination name" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Location</label>
+                        <input type="text" placeholder="City, Country" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Category</label>
+                        <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                            <option>Select category</option>
+                            <option>Beach Resort</option>
+                            <option>Food Spot</option>
+                            <option>Tourist Spot</option>
+                           
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Status</label>
+                        <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism">
+                            <option>Active</option>
+                            <option>Inactive</option>
+                            <option>Pending</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-text-primary mb-2">Description</label>
+                    <textarea rows="4" placeholder="Enter destination description" class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-text-primary mb-2">Upload Images</label>
+                    <div class="border-2 border-dashed border-border rounded-lg p-6 text-center">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-text-secondary mb-2"></i>
+                        <p class="text-text-secondary">Drag and drop images here or click to browse</p>
+                        <input type="file" multiple accept="image/*" class="hidden" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-3 p-6 border-t border-border">
+                <button id="cancelModal" class="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-slate-50 transition-tourism">
+                    Cancel
+                </button>
+                <button class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-tourism">
+                    Add Destination
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Modal Controls
+        const addDestinationBtn = document.getElementById('addDestinationBtn');
+        const addDestinationModal = document.getElementById('addDestinationModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+
+        addDestinationBtn.addEventListener('click', () => {
+            addDestinationModal.classList.remove('hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+            addDestinationModal.classList.add('hidden');
+        });
+
+        cancelModal.addEventListener('click', () => {
+            addDestinationModal.classList.add('hidden');
+        });
+
+        addDestinationModal.addEventListener('click', (e) => {
+            if (e.target === addDestinationModal) {
+                addDestinationModal.classList.add('hidden');
+            }
+        });
+
+        // Category Distribution Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Beach Resorts', 'Food Spot', 'Tourist Spot', 'Health And Wellness'],
+                datasets: [{
+                    data: [89, 67, 54, 37],
+                    backgroundColor: ['#2563EB', '#059669', '#0891B2', '#F59E0B'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // Table interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select all checkboxes functionality
+            const selectAllCheckbox = document.querySelector('thead input[type="checkbox"]');
+            const rowCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+
+            selectAllCheckbox.addEventListener('change', function() {
+                rowCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+
+            // Individual checkbox change
+            rowCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checkedBoxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
+                    selectAllCheckbox.checked = checkedBoxes.length === rowCheckboxes.length;
+                    selectAllCheckbox.indeterminate = checkedBoxes.length > 0 && checkedBoxes.length < rowCheckboxes.length;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
