@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviews & Ratings - Tourism Admin</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+  .reports-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .filters {
+    margin-bottom: 20px;
+  }
+
+  .filters label {
+    margin-right: 10px;
+  }
+
+  .filters select {
+    margin-right: 10px;
+  }
+
+  .btn-filter {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .btn-filter:hover {
+    background-color: #0056b3;
+  }
+
+  .report-overview p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  .report-chart {
+    margin-top: 20px;
+  }
+
+  .download-section {
+    margin-top: 20px;
+  }
+
+  .btn-download {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .btn-download:hover {
+    background-color: #218838;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  table th {
+    background-color: #f1f1f1;
+  }
+
+  .certificate {
+      border: 8px solid #2e86c1;
+      padding: 40px;
+      background: white;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .certificate h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #2e86c1;
+    }
+
+    .certificate h2 {
+      font-size: 24px;
+      margin: 20px 0 10px;
+      color: #1b4f72;
+    }
+
+    .certificate p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #1b4f72;
+    }
+
+    .footer {
+      margin-top: 50px;
+      text-align: right;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .sign-line {
+      margin-top: 60px;
+      border-top: 1px solid #000;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sign-label {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+</style>
+
+</head>
+<body class="bg-background font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-surface border-b border-border z-50 h-16">
+        <div class="flex items-center justify-between px-6 h-full">
+            <!-- Logo and Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-tourism">
+                    <i class="fas fa-bars text-text-primary"></i>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mountain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-text-primary hidden sm:block">Tourism Admin</h1>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="relative">
+                    <input type="text" placeholder="Search reviews, users, destinations..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+               
+
+                <!-- User Profile -->
+                <div class="flex items-center gap-3">
+                    <img src="../pixs/josh.jpg" alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <span class="text-sm font-medium text-text-primary hidden sm:block">Joshua Sanchez Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-surface border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <nav class="p-4 space-y-2">
+            <a href="dashboard_overview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="destinations_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>Destinations</span>
+            </a>
+            <a href="user_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+            <a href="business_directory.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-building w-5"></i>
+                <span>Businesses</span>
+            </a>
+            <a href="reviews_ratings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-tourism">
+                <i class="fas fa-star w-5"></i>
+                <span>Reports</span>
+            </a>
+           
+            </a>
+            <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-16 min-h-screen">
+        <div class="flex">
+            <!-- Main Content Area -->
+            <div class="flex-1 p-6">
+                <!-- Page Header -->
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-text-primary mb-2">Reports</h2>
+                        <p class="text-text-secondary">Moderate and analyze user reviews across all destinations and businesses</p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-4 lg:mt-0">
+                       
+                       
+                    </div>
+                </div>
+
+                <section id="reports" class="reports-section">
+  <h2>Monthly Reports</h2>
+
+  <!-- Report Filters -->
+  <div class="filters">
+    <label for="month-select">Select Month: </label>
+    <select id="month-select" name="month">
+      <option value="january">January</option>
+      <option value="february">February</option>
+      <option value="march">March</option>
+      <option value="april">April</option>
+      <option value="may">May</option>
+      <option value="june">June</option>
+      <option value="july">July</option>
+      <option value="august">August</option>
+      <option value="september">September</option>
+      <option value="october">October</option>
+      <option value="november">November</option>
+      <option value="december">December</option>
+    </select>
+
+    <label for="year-select">Select Year: </label>
+    <select id="year-select" name="year">
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
+      <option value="2025">2025</option>
+    </select>
+
+    <button class="btn-filter">Apply Filters</button>
+  </div>
+
+  <!-- Reports Overview -->
+  <div class="report-overview">
+    <h3>Overview</h3>
+    <p><strong>Total Visitors:</strong> <span id="total-visitors">1,245</span></p>
+    <p><strong>Total Sales:</strong> <span id="total-sales">₱15,000</span></p>
+    <p><strong>Active Users:</strong> <span id="active-users">342</span></p>
+  </div>
+
+  <!-- Data Visualization (Placeholder for Graph) -->
+  <div class="report-chart">
+    
+    <!-- You can replace this placeholder with an actual chart using Chart.js or another library -->
+  </div>
+
+  <!-- Download Report Button -->
+  <div class="download-section">
+    <button class="btn-download" onclick="downloadReport()">Download Report</button>
+  </div>
+
+  <!-- Report Details Table -->
+  <div class="report-details">
+    <h3>Report Details</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Visitors</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01/01/2023</td>
+          <td>120</td>
+          <td>₱1,500</td>
+        </tr>
+        <tr>
+          <td>02/01/2023</td>
+          <td>150</td>
+          <td>₱2,000</td>
+        </tr>
+        <tr>
+          <td>03/01/2023</td>
+          <td>170</td>
+          <td>₱2,500</td>
+        </tr>
+        <tr>
+          <td>04/01/2023</td>
+          <td>180</td>
+          <td>₱2,800</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<div class="certificate">
+    <h1>Monthly Tourism Report</h1>
+    <h2>Tourism Highlights for August 2025</h2>
+
+    <p>This certificate presents the recorded tourism data for the Municipality of Tanza.</p>
+    
+    <p><span class="highlight">Total Visitors in Tanza:</span> 8,542</p>
+    <p><span class="highlight">Visitors to Beach Resorts:</span> 3,210</p>
+    <p><span class="highlight">Visitors to Lodging:</span> 2,785</p>
+    <p><span class="highlight">Visitors to Heritage Sites:</span> 1,330</p>
+    <p><span class="highlight">Others (Food Spots, Lodging, etc.):</span> 1,217</p>
+
+    <div class="sign-line"></div>
+    <div class="sign-label">Authorized Signature</div>
+
+    <div class="footer">
+      Date Generated: August 14, 2025
+    </div>
+  </div>
+
+</body>
+
+</body>
+               </html>

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management - Tourism Admin</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 right-0 bg-surface border-b border-border z-50 h-16">
+        <div class="flex items-center justify-between px-6 h-full">
+            <!-- Logo and Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="sidebarToggle" class="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-tourism">
+                    <i class="fas fa-bars text-text-primary"></i>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-mountain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-text-primary hidden sm:block">Tourism Admin</h1>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-8 hidden md:block">
+                <div class="relative">
+                    <input type="text" id="globalSearch" placeholder="Search users, destinations, businesses..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Notifications -->
+               
+                <!-- User Profile -->
+                <div class="flex items-center gap-3">
+                    <img src="../pixs/josh.jpg" alt="Admin Avatar" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                    <span class="text-sm font-medium text-text-primary hidden sm:block">Joshua Sanchez Admin</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-surface border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40">
+        <nav class="p-4 space-y-2">
+            <a href="dashboard_overview.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-chart-line w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="destinations_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>Destinations</span>
+            </a>
+            <a href="user_management.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-tourism">
+                <i class="fas fa-users w-5"></i>
+                <span>Users</span>
+            </a>
+            <a href="business_directory.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-building w-5"></i>
+                <span>Businesses</span>
+            </a>
+            <a href="reviews_ratings.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-star w-5"></i>
+                <span>Reports</span>
+            </a>
+            
+            </a>
+            <a href="settings_configuration.html" class="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-slate-50 hover:text-text-primary transition-tourism">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-16 min-h-screen">
+        <div class="p-6">
+            <!-- Page Header -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-text-primary mb-2">User Management</h2>
+                    <p class="text-text-secondary">Monitor tourist accounts, engagement metrics, and user activity patterns</p>
+                </div>
+                <div class="flex items-center gap-3 mt-4 lg:mt-0">
+                    <button id="exportUsers" class="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary-700 transition-tourism">
+                        <i class="fas fa-download mr-2"></i>Export Users
+                    </button>
+                </div>
+            </div>
+
+            <!-- Desktop Layout -->
+            <div class="hidden xl:grid xl:grid-cols-12 xl:gap-6">
+                <!-- Main Content Area (8 columns) -->
+                <div class="xl:col-span-8">
+                    <!-- Advanced Filtering Panel -->
+                    <div class="card p-6 mb-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-4">
+                            <h3 class="text-lg font-semibold text-text-primary">User Filters</h3>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-text-secondary">Results:</span>
+                                <span id="resultCount" class="text-sm font-medium text-primary">1,247 users</span>
+                                <button id="resetFilters" class="text-sm text-text-secondary hover:text-primary transition-tourism">
+                                    <i class="fas fa-undo mr-1"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Search Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-2">Search Users</label>
+                                <div class="relative">
+                                    <input type="text" id="userSearch" placeholder="Name, email..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                                </div>
+                            </div>
+
+                            <!-- Date Range Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-2">Registration Date</label>
+                                <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All time</option>
+                                    <option>Last 7 days</option>
+                                    <option>Last 30 days</option>
+                                    <option>Last 90 days</option>
+                                    <option>This year</option>
+                                </select>
+                            </div>
+
+                            <!-- User Type Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-2">User Type</label>
+                                <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All types</option>
+                                    <option>Tourist</option>
+                                    <option>Local Guide</option>
+                                    <option>Business Owner</option>
+                                    <option>Premium Member</option>
+                                </select>
+                            </div>
+
+                            <!-- Activity Level Filter -->
+                            <div>
+                                <label class="block text-sm font-medium text-text-primary mb-2">Activity Level</label>
+                                <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                    <option>All levels</option>
+                                    <option>Very Active</option>
+                                    <option>Active</option>
+                                    <option>Moderate</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Data Table -->
+                    <div class="card overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-slate-50 border-b border-border">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-sm font-medium text-text-primary">
+                                            <button class="flex items-center gap-2 hover:text-primary transition-tourism">
+                                                User Profile
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </button>
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-medium text-text-primary">
+                                            <button class="flex items-center gap-2 hover:text-primary transition-tourism">
+                                                Registration
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </button>
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-medium text-text-primary">
+                                            <button class="flex items-center gap-2 hover:text-primary transition-tourism">
+                                                Last Activity
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </button>
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-medium text-text-primary">
+                                            <button class="flex items-center gap-2 hover:text-primary transition-tourism">
+                                                Engagement
+                                                <i class="fas fa-sort text-xs"></i>
+                                            </button>
+                                        </th>
+                                        <th class="px-6 py-4 text-left text-sm font-medium text-text-primary">Status</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border">
+                                    <!-- User Row 1 -->
+                                    <tr class="hover:bg-slate-50 cursor-pointer transition-tourism user-row" data-user-id="1">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/queenie.jpg" alt="Sarah Johnson" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <p class="font-medium text-text-primary">Queeni Nogales</p>
+                                                    <p class="text-sm text-text-secondary">queenie@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">Jan 15, 2025</td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">2 hours ago</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                                    <div class="bg-success h-2 rounded-full" style="width: 85%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium text-success">85%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <!-- User Row 2 -->
+                                    <tr class="hover:bg-slate-50 cursor-pointer transition-tourism user-row" data-user-id="2">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/ace.jpg" alt="Michael Chen" class="w-10 h-10 rounded-full object-cover" onerror="this.src='../pixs/ace.jpg'; this.onerror=null;" />
+                                                <div>
+                                                    <p class="font-medium text-text-primary">Ace Esguerra</p>
+                                                    <p class="text-sm text-text-secondary">ace@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">Jan 12, 2025</td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">1 day ago</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                                    <div class="bg-primary h-2 rounded-full" style="width: 72%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium text-primary">72%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <!-- User Row 3 -->
+                                    <tr class="hover:bg-slate-50 cursor-pointer transition-tourism user-row" data-user-id="3">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/fher.jpg" alt="Emma Rodriguez" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <p class="font-medium text-text-primary">Fher Pacumio</p>
+                                                    <p class="text-sm text-text-secondary">fher@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">Jan 10, 2025</td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">3 days ago</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                                    <div class="bg-warning h-2 rounded-full" style="width: 45%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium text-warning">45%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-medium bg-warning-100 text-warning rounded-full">Moderate</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <!-- User Row 4 -->
+                                    <tr class="hover:bg-slate-50 cursor-pointer transition-tourism user-row" data-user-id="4">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/josh.jpg" alt="David Thompson" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <p class="font-medium text-text-primary">Joshua Sanchez</p>
+                                                    <p class="text-sm text-text-secondary">joshua@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">Jan 8, 2025</td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">1 week ago</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                                    <div class="bg-error h-2 rounded-full" style="width: 25%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium text-error">25%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-medium bg-error-100 text-error rounded-full">Inactive</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <!-- User Row 5 -->
+                                    <tr class="hover:bg-slate-50 cursor-pointer transition-tourism user-row" data-user-id="5">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <img src="../pixs/tanzapic.jpg" alt="Lisa Park" class="w-10 h-10 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                                <div>
+                                                    <p class="font-medium text-text-primary">j.faq</p>
+                                                    <p class="text-sm text-text-secondary">jfaq@email.com</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">Jan 5, 2025</td>
+                                        <td class="px-6 py-4 text-sm text-text-secondary">30 minutes ago</td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="w-16 bg-slate-200 rounded-full h-2">
+                                                    <div class="bg-success h-2 rounded-full" style="width: 92%"></div>
+                                                </div>
+                                                <span class="text-sm font-medium text-success">92%</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Very Active</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="flex items-center justify-between px-6 py-4 border-t border-border">
+                            <div class="text-sm text-text-secondary">
+                                Showing 1 to 5 of 1,247 users
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-1 text-sm border border-border rounded hover:bg-slate-50 transition-tourism">Previous</button>
+                                <button class="px-3 py-1 text-sm bg-primary text-white rounded">1</button>
+                                <button class="px-3 py-1 text-sm border border-border rounded hover:bg-slate-50 transition-tourism">2</button>
+                                <button class="px-3 py-1 text-sm border border-border rounded hover:bg-slate-50 transition-tourism">3</button>
+                                <button class="px-3 py-1 text-sm border border-border rounded hover:bg-slate-50 transition-tourism">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar Analytics (4 columns) -->
+                <div class="xl:col-span-4 space-y-6">
+                    <!-- Registration Trends -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Registration Trends</h3>
+                        <div class="h-48">
+                            <canvas id="registrationChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-sm text-text-secondary">
+                            <div class="flex items-center justify-between">
+                                <span>This month</span>
+                                <span class="font-medium text-success">+23.5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geographic Distribution -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Geographic Distribution</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-primary rounded-full"></div>
+                                    <span class="text-sm">Tanza Cavite</span>
+                                </div>
+                                <span class="text-sm font-medium">35.2%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                                    <span class="text-sm">Amaya</span>
+                                </div>
+                                <span class="text-sm font-medium">18.7%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span class="text-sm">Calibuyo</span>
+                                </div>
+                                <span class="text-sm font-medium">12.4%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                    <span class="text-sm">Halayhay</span>
+                                </div>
+                                <span class="text-sm font-medium">9.8%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-slate-400 rounded-full"></div>
+                                    <span class="text-sm">Others</span>
+                                </div>
+                                <span class="text-sm font-medium">23.9%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Engagement Metrics -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Engagement Metrics</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Average Session</span>
+                                <span class="text-sm font-medium">12m 34s</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Reviews per User</span>
+                                <span class="text-sm font-medium">3.2</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Destinations Visited</span>
+                                <span class="text-sm font-medium">7.8</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-text-secondary">Return Rate</span>
+                                <span class="text-sm font-medium text-success">68.5%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 h-32">
+                            <canvas id="engagementChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tablet/Mobile Layout -->
+            <div class="xl:hidden">
+                <!-- Advanced Filtering Panel -->
+                <div class="card p-6 mb-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <h3 class="text-lg font-semibold text-text-primary">User Filters</h3>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-text-secondary">Results:</span>
+                            <span class="text-sm font-medium text-primary">1,247 users</span>
+                            <button class="text-sm text-text-secondary hover:text-primary transition-tourism">
+                                <i class="fas fa-undo mr-1"></i>Reset
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Search Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Search Users</label>
+                            <div class="relative">
+                                <input type="text" placeholder="Name, email..." class="w-full pl-10 pr-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-tourism" />
+                                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary"></i>
+                            </div>
+                        </div>
+
+                        <!-- Date Range Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Registration Date</label>
+                            <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option>All time</option>
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 90 days</option>
+                            </select>
+                        </div>
+
+                        <!-- User Type Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">User Type</label>
+                            <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option>All types</option>
+                                <option>Tourist</option>
+                                <option>Local Guide</option>
+                                <option>Business Owner</option>
+                            </select>
+                        </div>
+
+                        <!-- Activity Level Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-text-primary mb-2">Activity Level</label>
+                            <select class="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                                <option>All levels</option>
+                                <option>Very Active</option>
+                                <option>Active</option>
+                                <option>Moderate</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile User Cards -->
+                <div class="block md:hidden space-y-4 mb-6">
+                    <!-- User Card 1 -->
+                    <div class="card p-4 user-card" data-user-id="1">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <img src="../pixs/queenie.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <div>
+                                    <p class="font-medium text-text-primary">Queenie</p>
+                                    <p class="text-sm text-text-secondary">queenie@email.com</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <p class="text-xs text-text-secondary">Registration</p>
+                                <p class="text-sm font-medium">Jan 15, 2025</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-text-secondary">Last Activity</p>
+                                <p class="text-sm font-medium">2 hours ago</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-text-secondary">Engagement</span>
+                                <span class="text-xs font-medium text-success">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-success h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary text-sm font-medium">View Details</button>
+                            <div class="flex items-center gap-3">
+                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-secondary transition-tourism">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-warning transition-tourism">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Card 2 -->
+                    <div class="card p-4 user-card" data-user-id="2">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Michael Chen" class="w-12 h-12 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <div>
+                                    <p class="font-medium text-text-primary">Ace</p>
+                                    <p class="text-sm text-text-secondary">ace@email.com</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <p class="text-xs text-text-secondary">Registration</p>
+                                <p class="text-sm font-medium">Jan 12, 2025</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-text-secondary">Last Activity</p>
+                                <p class="text-sm font-medium">1 day ago</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-text-secondary">Engagement</span>
+                                <span class="text-xs font-medium text-primary">72%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 72%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary text-sm font-medium">View Details</button>
+                            <div class="flex items-center gap-3">
+                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-secondary transition-tourism">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-warning transition-tourism">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Card 3 -->
+                    <div class="card p-4 user-card" data-user-id="3">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Emma Rodriguez" class="w-12 h-12 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <div>
+                                    <p class="font-medium text-text-primary">Fher</p>
+                                    <p class="text-sm text-text-secondary">fher@email.com</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium bg-warning-100 text-warning rounded-full">Moderate</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <p class="text-xs text-text-secondary">Registration</p>
+                                <p class="text-sm font-medium">Jan 10, 2025</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-text-secondary">Last Activity</p>
+                                <p class="text-sm font-medium">3 days ago</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs text-text-secondary">Engagement</span>
+                                <span class="text-xs font-medium text-warning">45%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-warning h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button class="text-primary text-sm font-medium">View Details</button>
+                            <div class="flex items-center gap-3">
+                                <button class="p-2 text-text-secondary hover:text-primary transition-tourism">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-secondary transition-tourism">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="p-2 text-text-secondary hover:text-warning transition-tourism">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tablet Table View -->
+                <div class="hidden md:block xl:hidden card overflow-hidden mb-6">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-slate-50 border-b border-border">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-text-primary">User</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-text-primary">Registration</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-text-primary">Activity</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-text-primary">Status</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium text-text-primary">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border">
+                                <tr class="hover:bg-slate-50 transition-tourism">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sarah Johnson" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <p class="font-medium text-text-primary text-sm">josh</p>
+                                                <p class="text-xs text-text-secondary">josh@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-text-secondary">Jan 15, 2025</td>
+                                    <td class="px-4 py-3 text-sm text-text-secondary">2 hours ago</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-2">
+                                            <button class="p-1 text-text-secondary hover:text-primary transition-tourism">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="p-1 text-text-secondary hover:text-secondary transition-tourism">
+                                                <i class="fas fa-envelope"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition-tourism">
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Michael Chen" class="w-8 h-8 rounded-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                            <div>
+                                                <p class="font-medium text-text-primary text-sm">jfaq</p>
+                                                <p class="text-xs text-text-secondary">jfaqemail.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-text-secondary">Jan 12, 2025</td>
+                                    <td class="px-4 py-3 text-sm text-text-secondary">1 day ago</td>
+                                    <td class="px-4 py-3">
+                                        <span class="px-2 py-1 text-xs font-medium bg-success-100 text-success rounded-full">Active</span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center gap-2">
+                                            <button class="p-1 text-text-secondary hover:text-primary transition-tourism">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="p-1 text-text-secondary hover:text-secondary transition-tourism">
+                                                <i class="fas fa-envelope"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Analytics Section for Tablet/Mobile -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Registration Trends -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Registration Trends</h3>
+                        <div class="h-48">
+                            <canvas id="registrationChartMobile"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Geographic Distribution -->
+                    <div class="card p-6">
+                        <h3 class="text-lg font-semibold text-text-primary mb-4">Geographic Distribution</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-primary rounded-full"></div>
+                                    <span class="text-sm">Halayhay, Tanza</span>
+                                </div>
+                                <span class="text-sm font-medium">35.2%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-secondary rounded-full"></div>
+                                    <span class="text-sm">Amaya, Tanza</span>
+                                </div>
+                                <span class="text-sm font-medium">18.7%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-accent rounded-full"></div>
+                                    <span class="text-sm">Calibuyo, Tanza</span>
+                                </div>
+                                <span class="text-sm font-medium">12.4%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                    <span class="text-sm">Sahud Ulan, Tanza</span>
+                                </div>
+                                <span class="text-sm font-medium">9.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- User Profile Overlay Modal -->
+    <div id="userProfileModal" class="fixed inset-0 bg-black/50 z-60 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-surface rounded-lg shadow-tourism-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6 border-b border-border">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold text-text-primary">User Profile Details</h3>
+                        <button id="closeModal" class="p-2 text-text-secondary hover:text-text-primary transition-tourism">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-start gap-6 mb-6">
+                        <img id="modalUserImage" src alt="User" class="w-20 h-20 rounded-full object-cover" />
+                        <div class="flex-1">
+                            <h4 id="modalUserName" class="text-xl font-semibold text-text-primary mb-2"></h4>
+                            <p id="modalUserEmail" class="text-text-secondary mb-2"></p>
+                            <span id="modalUserStatus" class="px-3 py-1 text-sm font-medium rounded-full"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h5 class="font-semibold text-text-primary mb-3">Account Information</h5>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">Registration Date:</span>
+                                    <span id="modalRegDate" class="text-text-primary"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">Last Activity:</span>
+                                    <span id="modalLastActivity" class="text-text-primary"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">User Type:</span>
+                                    <span class="text-text-primary">Tourist</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">Location:</span>
+                                    <span class="text-text-primary">Tanza, Cavite</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h5 class="font-semibold text-text-primary mb-3">Activity Summary</h5>
+                            <div class="space-y-2 text-sm">
+                                
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">Destinations Visited:</span>
+                                    <span class="text-text-primary">8</span>
+                                </div>
+                               
+                                <div class="flex justify-between">
+                                    <span class="text-text-secondary">Engagement Score:</span>
+                                    <span id="modalEngagement" class="text-text-primary font-medium"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h5 class="font-semibold text-text-primary mb-3">Recent Activity</h5>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                                <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-star text-success text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-text-primary">Left a 5-star review</p>
+                                    <p class="text-xs text-text-secondary">Reviewed "Sunset Beach Resort" - 2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg">
+                                <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-camera text-primary text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-text-primary">Uploaded photos</p>
+                                    <p class="text-xs text-text-secondary">Added 5 photos to "Mountain Trail Adventure" - 1 day ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        
+                        
+                        <button class="px-4 py-2 border border-border text-text-secondary rounded-lg hover:bg-slate-50 transition-tourism">
+                            <i class="fas fa-ban mr-2"></i>Suspend Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // User Profile Modal
+        const userProfileModal = document.getElementById('userProfileModal');
+        const closeModal = document.getElementById('closeModal');
+        const userRows = document.querySelectorAll('.user-row');
+        const userCards = document.querySelectorAll('.user-card');
+
+        // Sample user data
+        const userData = {
+            1: {
+                name: 'queenie',
+                email: 'queenie@email.com',
+                image: '../pixs/queenie.jpg',
+                status: 'Active',
+                regDate: 'Jan 15, 2025',
+                lastActivity: '2 hours ago',
+                engagement: '85%'
+            },
+            2: {
+                name: 'ace',
+                email: 'ace@email.com',
+                image: '../pixs/ace.jpg',
+                status: 'Active',
+                regDate: 'Jan 12, 2025',
+                lastActivity: '1 day ago',
+                engagement: '72%'
+            },
+            3: {
+                name: 'fher',
+                email: 'fher@email.com',
+                image: '../pixs/fher.jpg',
+                status: 'Moderate',
+                regDate: 'Jan 10, 2025',
+                lastActivity: '3 days ago',
+                engagement: '45%'
+            }
+        };
+
+        function openUserModal(userId) {
+            const user = userData[userId];
+            if (!user) return;
+
+            document.getElementById('modalUserName').textContent = user.name;
+            document.getElementById('modalUserEmail').textContent = user.email;
+            document.getElementById('modalUserImage').src = user.image;
+            document.getElementById('modalRegDate').textContent = user.regDate;
+            document.getElementById('modalLastActivity').textContent = user.lastActivity;
+            document.getElementById('modalEngagement').textContent = user.engagement;
+
+            const statusElement = document.getElementById('modalUserStatus');
+            statusElement.textContent = user.status;
+            statusElement.className = 'px-3 py-1 text-sm font-medium rounded-full ';
+            
+            if (user.status === 'Active') {
+                statusElement.className += 'bg-success-100 text-success';
+            } else if (user.status === 'Moderate') {
+                statusElement.className += 'bg-warning-100 text-warning';
+            } else {
+                statusElement.className += 'bg-error-100 text-error';
+            }
+
+            userProfileModal.classList.remove('hidden');
+        }
+
+        // Add click events to user rows and cards
+        userRows.forEach(row => {
+            row.addEventListener('click', (e) => {
+                if (!e.target.closest('button')) {
+                    const userId = row.dataset.userId;
+                    openUserModal(userId);
+                }
+            });
+        });
+
+        userCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('button')) {
+                    const userId = card.dataset.userId;
+                    openUserModal(userId);
+                }
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            userProfileModal.classList.add('hidden');
+        });
+
+        userProfileModal.addEventListener('click', (e) => {
+            if (e.target === userProfileModal) {
+                userProfileModal.classList.add('hidden');
+            }
+        });
+
+        // Registration Trends Chart
+        const registrationCtx = document.getElementById('registrationChart');
+        if (registrationCtx) {
+            new Chart(registrationCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Dec', 'Jan 1', 'Jan 8', 'Jan 15', 'Jan 22', 'Jan 29', 'Feb 5'],
+                    datasets: [{
+                        label: 'New Users',
+                        data: [45, 52, 48, 61, 55, 67, 73],
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Mobile Registration Chart
+        const registrationMobileCtx = document.getElementById('registrationChartMobile');
+        if (registrationMobileCtx) {
+            new Chart(registrationMobileCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Dec', 'Jan 1', 'Jan 8', 'Jan 15', 'Jan 22', 'Jan 29', 'Feb 5'],
+                    datasets: [{
+                        label: 'New Users',
+                        data: [45, 52, 48, 61, 55, 67, 73],
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Engagement Chart
+        const engagementCtx = document.getElementById('engagementChart');
+        if (engagementCtx) {
+            new Chart(engagementCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Very Active', 'Active', 'Moderate', 'Inactive'],
+                    datasets: [{
+                        data: [28, 45, 18, 9],
+                        backgroundColor: ['#10B981', '#2563EB', '#F59E0B', '#EF4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Global Search Functionality
+        const globalSearch = document.getElementById('globalSearch');
+        const userSearch = document.getElementById('userSearch');
+
+        if (globalSearch) {
+            globalSearch.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                // Implement search logic here
+                console.log('Global search:', searchTerm);
+            });
+        }
+
+        if (userSearch) {
+            userSearch.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                // Implement user search logic here
+                console.log('User search:', searchTerm);
+            });
+        }
+
+        // Filter Reset
+        const resetFilters = document.getElementById('resetFilters');
+        if (resetFilters) {
+            resetFilters.addEventListener('click', () => {
+                // Reset all filter inputs
+                const filterInputs = document.querySelectorAll('select, input[type="text"]');
+                filterInputs.forEach(input => {
+                    if (input.tagName === 'SELECT') {
+                        input.selectedIndex = 0;
+                    } else {
+                        input.value = '';
+                    }
+                });
+            });
+        }
+
+        // Export Users
+        const exportUsers = document.getElementById('exportUsers');
+        if (exportUsers) {
+            exportUsers.addEventListener('click', () => {
+                // Implement export functionality
+                console.log('Exporting users...');
+            });
+        }
+
+        // Send Notification
+        const sendNotification = document.getElementById('sendNotification');
+        if (sendNotification) {
+            sendNotification.addEventListener('click', () => {
+                // Implement notification functionality
+                console.log('Sending notification...');
+            });
+        }
+    </script>
+</body>
+</html>
